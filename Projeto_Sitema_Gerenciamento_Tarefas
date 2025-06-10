@@ -164,3 +164,32 @@ void editarTarefa(char tarefas[][NUM_CAMPOS][TAM_CAMPO], int quantidade) {
 
     printf("Tarefa atualizada com sucesso!\n");
 }
+void excluirTarefa(char tarefas[][NUM_CAMPOS][TAM_CAMPO], int *quantidade) {
+    if (*quantidade == 0) {
+        printf("\nNenhuma tarefa para excluir!\n");
+        return;
+    }
+
+    listarTarefas(tarefas, *quantidade);
+    
+    int indice;
+    printf("\nDigite o numero da tarefa que deseja excluir: ");
+    scanf("%d", &indice);
+    limparBuffer();
+    
+    if (indice < 1 || indice > *quantidade) {
+        printf("Indice invalido!\n");
+        return;
+    }
+
+    indice--; // Ajusta para índice interno
+
+    for (int i = indice; i < *quantidade - 1; i++) {
+        for (int j = 0; j < NUM_CAMPOS; j++) {
+            strcpy(tarefas[i][j], tarefas[i + 1][j]);
+        }
+    }
+
+    (*quantidade)--;
+    printf("Tarefa excluida com sucesso!\n");
+}
