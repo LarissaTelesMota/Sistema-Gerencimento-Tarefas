@@ -193,3 +193,22 @@ void excluirTarefa(char tarefas[][NUM_CAMPOS][TAM_CAMPO], int *quantidade) {
     (*quantidade)--;
     printf("Tarefa excluida com sucesso!\n");
 }
+void salvarTarefasEmArquivo(char tarefas[][NUM_CAMPOS][TAM_CAMPO], int quantidade) {
+    FILE *arquivo = fopen("tarefas.txt", "w");
+    
+    if (arquivo == NULL) {
+        printf("Erro ao criar arquivo!\n");
+        return;
+    }
+
+    for (int i = 0; i < quantidade; i++) {
+        fprintf(arquivo, "Tarefa %d\n", i + 1);
+        fprintf(arquivo, "Titulo: %s\n", tarefas[i][0]);
+        fprintf(arquivo, "Descricao: %s\n", tarefas[i][1]);
+        fprintf(arquivo, "Prioridade: %s\n", tarefas[i][2]);
+        fprintf(arquivo, "Status: %s\n\n", tarefas[i][3]);
+    }
+
+    fclose(arquivo);
+    printf("Tarefas salvas no arquivo 'tarefas.txt' com sucesso!\n");
+}
